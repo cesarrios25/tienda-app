@@ -1,0 +1,44 @@
+@model IEnumerable<TiendaApp.Models.Categoria>
+@{ ViewData["Title"] = "Categorías"; }
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <h2>Categorías</h2>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="t-btn">+ Nueva categoría</a>
+        }
+    </div>
+    <div class="t-table-wrap">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Activa</th>
+                <th>Creada</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.NombreCategoria</td>
+                    <td>@c.DescripcionCategoria</td>
+                    <td>@(c.Activo ? "✅" : "❌")</td>
+                    <td>@c.CreadoEn.ToShortDateString()</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@c.IdCategoria" class="btn btn-sm btn-info">Ver</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit"   asp-route-id="@c.IdCategoria" class="btn btn-sm btn-warning">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@c.IdCategoria" class="btn btn-sm btn-danger">Borrar</a>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

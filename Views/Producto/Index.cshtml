@@ -1,0 +1,57 @@
+@model IEnumerable<TiendaApp.Models.Producto>
+@{ ViewData["Title"] = "Productos"; }
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <h2>Productos</h2>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-action="Create" class="t-btn">+ Nuevo producto</a>
+        }
+    </div>
+    <div class="t-table-wrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>SKU</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.NombreProducto</td>
+                        <td style="font-family: monospace; font-size:0.85rem; color:var(--gray-500)">@p.SKU</td>
+                        <td>@p.Categoria?.NombreCategoria</td>
+                        <td>$@p.Precio.ToString("N2")</td>
+                        <td>
+                            @if (p.Stock?.Cantidad <= p.Stock?.CantidadMinima)
+                            {
+                                <span class="badge bg-danger">@p.Stock.Cantidad</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">@p.Stock?.Cantidad</span>
+                            }
+                        </td>
+                        <td>@(p.Activo ? "✅" : "❌")</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@p.IdProducto" class="btn btn-sm btn-info">Ver</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Edit"   asp-route-id="@p.IdProducto" class="btn btn-sm btn-warning">Editar</a>
+                                <a asp-action="Delete" asp-route-id="@p.IdProducto" class="btn btn-sm btn-danger">Borrar</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

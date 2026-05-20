@@ -1,0 +1,27 @@
+@model TiendaApp.Models.Producto
+
+@{
+    ViewData["Title"] = "Borrar Producto";
+}
+
+<h2>¿Borrar este producto?</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.NombreProducto</dd>
+
+    <dt class="col-sm-3">SKU</dt>
+    <dd class="col-sm-9">@Model.SKU</dd>
+
+    <dt class="col-sm-3">Categoría</dt>
+    <dd class="col-sm-9">@Model.Categoria?.NombreCategoria</dd>
+
+    <dt class="col-sm-3">Precio</dt>
+    <dd class="col-sm-9">$@Model.Precio.ToString("N2")</dd>
+</dl>
+
+<form asp-action="Delete" asp-controller="Producto" method="post">
+    <input asp-for="IdProducto" type="hidden" />
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-danger">Sí, borrar</button>
+</form>

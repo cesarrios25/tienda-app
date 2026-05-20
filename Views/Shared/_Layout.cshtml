@@ -1,0 +1,73 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<TiendaApp.Models.ApplicationUser> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<TiendaApp.Models.ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TiendaApp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+
+    <nav class="t-nav" id="mainNav">
+        <div class="t-nav__inner">
+            <a class="t-nav__brand" asp-controller="Home" asp-action="Index">
+                <span class="t-nav__logo">&#9632;</span> TiendaApp
+            </a>
+            <ul class="t-nav__links">
+                <li><a asp-controller="Home" asp-action="Index">Inicio</a></li>
+                <li><a asp-controller="Categoria" asp-action="Index">Categorías</a></li>
+                <li><a asp-controller="Producto" asp-action="Index">Productos</a></li>
+            </ul>
+
+            <div class="t-nav__auth">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    var usuario = await UserManager.GetUserAsync(User);
+                    var esAdmin = await UserManager.IsInRoleAsync(usuario!, "Admin");
+
+                    <span class="t-nav__username">
+                        @(esAdmin ? "⚙️" : "👤") @usuario!.NombreCompleto
+                    </span>
+                    <form asp-controller="Auth" asp-action="Logout" method="post" class="d-inline">
+                        <button type="submit" class="t-btn t-btn--sm t-btn--ghost">Salir</button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Auth" asp-action="Login" class="t-btn t-btn--sm t-btn--ghost">Ingresar</a>
+                    <a asp-controller="Auth" asp-action="Registro" class="t-btn t-btn--sm">Registrarse</a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="t-footer">
+        <div class="t-footer__inner">
+            <span class="t-footer__brand">TiendaApp</span>
+            <span class="t-footer__copy">&copy; @DateTime.Now.Year — Todos los derechos reservados</span>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('t-nav--scrolled', window.scrollY > 20);
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

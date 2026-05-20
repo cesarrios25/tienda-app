@@ -1,0 +1,47 @@
+@model TiendaApp.Models.Producto
+
+@{
+    ViewData["Title"] = "Detalle Producto";
+}
+
+<h2>@Model.NombreProducto</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">SKU</dt>
+    <dd class="col-sm-9">@Model.SKU</dd>
+
+    <dt class="col-sm-3">Categoría</dt>
+    <dd class="col-sm-9">@Model.Categoria?.NombreCategoria</dd>
+
+    <dt class="col-sm-3">Descripción</dt>
+    <dd class="col-sm-9">@Model.DescripcionProducto</dd>
+
+    <dt class="col-sm-3">Precio</dt>
+    <dd class="col-sm-9">$@Model.Precio.ToString("N2")</dd>
+
+    <dt class="col-sm-3">Precio con descuento</dt>
+    <dd class="col-sm-9">
+        @(Model.DescuentoPrecio.HasValue ? $"${Model.DescuentoPrecio.Value:N2}" : "Sin descuento")
+    </dd>
+
+    <dt class="col-sm-3">Marca</dt>
+    <dd class="col-sm-9">@Model.Marca</dd>
+
+    <dt class="col-sm-3">Stock actual</dt>
+    <dd class="col-sm-9">@Model.Stock?.Cantidad unidades</dd>
+
+    <dt class="col-sm-3">Stock mínimo</dt>
+    <dd class="col-sm-9">@Model.Stock?.CantidadMinima unidades</dd>
+
+    <dt class="col-sm-3">Activo</dt>
+    <dd class="col-sm-9">@(Model.Activo ? "Sí" : "No")</dd>
+
+    <dt class="col-sm-3">Creado</dt>
+    <dd class="col-sm-9">@Model.CreadoEn.ToShortDateString()</dd>
+</dl>
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Edit" asp-route-id="@Model.IdProducto" class="btn btn-warning">Editar</a>
+}
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

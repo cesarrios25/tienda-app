@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<section class="hero">
+    <div class="hero__inner">
+        <div class="hero__content">
+            <p class="hero__eyebrow">Gestión de inventario</p>
+            <h1 class="hero__title">Todo tu negocio,<br><em>en un solo lugar.</em></h1>
+            <p class="hero__sub">Administra productos, categorías y stock de forma elegante y eficiente con nuestra plataforma premium.</p>
+            <div class="hero__actions">
+                <a asp-controller="Producto" asp-action="Index" class="t-btn t-btn--lg">Ver productos</a>
+                <a asp-controller="Categoria" asp-action="Index" class="t-btn t-btn--lg t-btn--ghost">Ver categorías</a>
+            </div>
+        </div>
+        <div class="hero__visual">
+            <div class="hero__card hero__card--1">
+                <div class="hero__card-dot hero__card-dot--green"></div>
+                <p class="hero__card-label">Stock disponible</p>
+                <p class="hero__card-value">@ViewBag.StockTotal.ToString("N0")</p>
+            </div>
+            <div class="hero__card hero__card--2">
+                <div class="hero__card-dot hero__card-dot--blue"></div>
+                <p class="hero__card-label">Categorías activas</p>
+                <p class="hero__card-value">@ViewBag.CategoriasActivas</p>
+            </div>
+            <div class="hero__card hero__card--3">
+                <div class="hero__card-dot hero__card-dot--orange"></div>
+                <p class="hero__card-label">Productos registrados</p>
+                <p class="hero__card-value">@ViewBag.ProductosRegistrados</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <p class="features__label">¿Por qué TiendaApp?</p>
+    <div class="features__grid">
+        <div class="feature">
+            <div class="feature__icon">⚡</div>
+            <h3 class="feature__title">Rápido y preciso</h3>
+            <p class="feature__text">Gestiona tu inventario en segundos. Sin complicaciones, sin pasos de más.</p>
+        </div>
+        <div class="feature">
+            <div class="feature__icon">📦</div>
+            <h3 class="feature__title">Control de stock</h3>
+            <p class="feature__text">Alertas de stock mínimo y visibilidad total en tiempo real.</p>
+        </div>
+        <div class="feature">
+            <div class="feature__icon">🗂️</div>
+            <h3 class="feature__title">Categorías inteligentes</h3>
+            <p class="feature__text">Organiza tus productos con categorías flexibles y navegación instantánea.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="cta__inner">
+        <h2 class="cta__title">¿Listo para empezar?</h2>
+        <p class="cta__sub">Agrega tu primer producto y comienza a organizar tu tienda hoy.</p>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="Producto" asp-action="Create" class="t-btn t-btn--lg">Comenzar ahora</a>
+        }
+        else
+        {
+            <a asp-controller="Producto" asp-action="Index" class="t-btn t-btn--lg">Ver productos</a>
+        }
+    </div>
+</section>

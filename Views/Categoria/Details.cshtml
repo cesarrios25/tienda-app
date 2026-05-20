@@ -1,0 +1,27 @@
+@model TiendaApp.Models.Categoria
+
+@{
+    ViewData["Title"] = "Detalle Categoría";
+}
+
+<h2>@Model.NombreCategoria</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">Descripción</dt>
+    <dd class="col-sm-9">@Model.DescripcionCategoria</dd>
+
+    <dt class="col-sm-3">Activa</dt>
+    <dd class="col-sm-9">@(Model.Activo ? "Sí" : "No")</dd>
+
+    <dt class="col-sm-3">Creada</dt>
+    <dd class="col-sm-9">@Model.CreadoEn.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Productos</dt>
+    <dd class="col-sm-9">@Model.Productos.Count()</dd>
+</dl>
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Edit" asp-route-id="@Model.IdCategoria" class="btn btn-warning">Editar</a>
+}
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

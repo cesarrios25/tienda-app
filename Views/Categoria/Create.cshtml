@@ -1,0 +1,32 @@
+@model TiendaApp.Models.Categoria
+@{ ViewData["Title"] = "Nueva Categoría"; }
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <h2>Nueva Categoría</h2>
+    </div>
+    <div class="form-wrapper">
+        <form asp-action="Create" method="post">
+            <div class="form-section">
+                <p class="form-section-title">Información</p>
+                <div class="mb-3">
+                    <label asp-for="NombreCategoria" class="form-label">Nombre</label>
+                    <input asp-for="NombreCategoria" class="form-control" />
+                    <span asp-validation-for="NombreCategoria" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DescripcionCategoria" class="form-label">Descripción</label>
+                    <textarea asp-for="DescripcionCategoria" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Activo" class="form-check-input" />
+                    <label asp-for="Activo" class="form-check-label">Activa</label>
+                </div>
+            </div>
+            <div class="form-actions">
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
