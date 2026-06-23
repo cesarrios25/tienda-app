@@ -186,3 +186,4 @@
 /Users/jucerigui/Documents/TiendaApp/TiendaApp/obj/Debug/net10.0/TiendaApp.csproj.Up2Date
 /Users/jucerigui/Documents/TiendaApp/TiendaApp/obj/Debug/net10.0/compressed/yffp9k81j9-{0}-txbbtn91my-txbbtn91my.gz
 /Users/jucerigui/Documents/TiendaApp/TiendaApp/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/jucerigui/Documents/TiendaApp/TiendaApp/obj/Debug/net10.0/TiendaApp.sourcelink.json

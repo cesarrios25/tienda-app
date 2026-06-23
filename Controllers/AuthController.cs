@@ -26,8 +26,7 @@ public class AuthController : Controller
     }
 
     // POST /Auth/Login
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpPost,ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
     {
         if (!ModelState.IsValid) return View(model);
